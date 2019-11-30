@@ -3,7 +3,7 @@ import random
 import pickle
 
 s1socket= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-s1socket.connect(("127.0.0.1", 5005)) # connect to central server //change port
+s1socket.connect(("127.0.0.1", 5006)) # connect to central server //change port
 
 IP = "127.0.0.1"
 PORT = 5005
@@ -12,11 +12,9 @@ serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 serversocket.bind((IP,PORT))
 serversocket.listen(100)
 
-listdirectory = file.open("lisdir.txt", "r")
-
+listdirectory = open("lisdir.txt", "r")
 lisdir = []
 line = listdirectory.readline()
-
 lisdir = line.split(",")
 
 print("Server1 is running!")
@@ -29,7 +27,6 @@ while(1):
 	clientsocket.send(num_list)
 	swaptuple = clientsocket.recv(1024).decode() # receive i,j tuple
 	s1socket.send(swaptuple.encode()) 
-
 	
 clientsocket.close()
 serversocket.close()
