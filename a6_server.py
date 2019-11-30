@@ -28,5 +28,5 @@ while(1):
 	swaptuple = clientsocket.recv(1024).decode() # receive i,j tuple
 	s1socket.send(swaptuple.encode()) 
 	
-clientsocket.close()
+	clientsocket.close()		#client terminates after one request so it should be terminated inside the loop right?
 serversocket.close()
