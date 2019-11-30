@@ -5,7 +5,7 @@ import pickle
 s1socket= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 s1socket.connect(("127.0.0.1", 5006)) # connect to central server //change port
 
-IP = "127.0.0.1"
+IP = localhost								#rachit said let Server IP always be local host- automatically takes running systems IP
 PORT = 5005
 
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
