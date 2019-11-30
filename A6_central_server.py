@@ -4,7 +4,7 @@ import pickle
 from datetime import datetime
 import datetime
 
-IP = "127.0.0.1"
+IP = localhost 
 PORT = 5006
 
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
