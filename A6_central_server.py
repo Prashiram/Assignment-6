@@ -46,5 +46,7 @@ while(1):
 					p = req.index(r) + 1
 					break
 
-clientsocket.close()
+	s1socket.close()
+	s2socket.close()
+	s3socket.close()				#shouldnt this be there instead of clientsocket ? Also It should be inside the outer while loop right?
 serversocket.close()
