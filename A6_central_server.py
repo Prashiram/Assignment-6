@@ -52,6 +52,7 @@ while(1):
 		if(time2.second>time1.second+10): 
 			break
 
+	print("Location 3")
 	time3 = datetime.datetime.now()
 	while(1):
 		final_list=[]
