@@ -3,10 +3,8 @@ import pickle
 from datetime import datetime
 
 clientsocket= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-IP= "127.0.0.1"	# (input('Enter the IP Address of the server: ')).rstrip()
-# PORT = (input('Enter the Port of the server: ')).strip()
-PORT= 5005 # int(PORT)                                              #dont fix IP and PORT as client can connect to any server.
-clientsocket.connect((IP, PORT))
+IP= "localhost"
+PORT= 5005 
 
 listofelements=[]
 indices=[]
