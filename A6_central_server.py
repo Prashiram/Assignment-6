@@ -3,8 +3,7 @@ import random
 import pickle
 import concurrent.futures
 from _thread import *
-import threading
-lock = threading.Lock() 
+import threading 
 from datetime import datetime
 import datetime
 from operator import itemgetter
@@ -12,7 +11,7 @@ from operator import itemgetter
 p = 0
 req = []
 flag = 0
-requests = open("requests.txt", "w")
+# requests = open("requests.txt", "w")
 
 IP = "localhost" 
 PORT = 5002
@@ -29,39 +28,34 @@ print("IP address -" + str(IP)+ ", Port - " + str(PORT))
 
 def acceptrequest(serversocket):
 	data = serversocket.recv(1024)
-	# data.decode()
 	req.append(pickle.loads(data)) # creating a list of requests
 	print(req)
-	lock.release()
 
 while(1):
 	flag = 0
 	while(1):
-		print("hi!")
+		print("Location 0")
 		if(flag==0):
 				time1 = datetime.datetime.now()
 				flag = -1
 
 		try:
 			(serversocket,address) = centralsocket.accept()
-			lock.acquire()
-			print("hi from here2")
+			print("Location 1")
 			print("Got a connection from ", address)
 			start_new_thread(acceptrequest, (serversocket,))
 
 		except socket.timeout:
-			print("hi from here3")
+			print("Location 2")
 
 		time2 = datetime.datetime.now()
 		if(time2.second>time1.second+10): 
 			break
-	
-	print("we outta here")
+
 	time3 = datetime.datetime.now()
 	while(1):
 		final_list=[]
 		temp_list=[]
-		# indices = []
 		if(len(req)!=0):
 
 			for r in req:
@@ -81,15 +75,24 @@ while(1):
 				num_list[j] = temp
 				p=p+1
 			req = req[p:]
-# print('Swapped : ',i,j)
 
 		time4 = datetime.datetime.now()
-		# print(time4)
-		if(time4.second>time3.second+5): 
-
-			print("we're done here")
+		if(time4.second>time3.second+10): 
 			break
 
 	print(num_list)
+	new_list = pickle.dumps(num_list)
+	
+	s1socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	s1socket.connect(("localhost", 4999)) # connect back to the three servers
+	s1socket.send(new_list)
+
+	s2socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	s2socket.connect(("localhost", 5000))
+	s2socket.send(new_list)
+
+	s3socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	s3socket.connect(("localhost", 5001))
+	s3socket.send(new_list)
 
 serversocket.close()
