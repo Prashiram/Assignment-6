@@ -14,8 +14,8 @@ data=clientsocket.recv(1024)	# recieving list
 listofelements=pickle.loads(data)
 print(listofelements)
 
-i=raw_input("Enter i: ")
-j=raw_input("Enter j: ")
+i=input("Enter i: ")
+j=input("Enter j: ")
 
 timestamp = datetime.now() # timestamp
 indices.append(i)
