@@ -6,11 +6,8 @@ from _thread import *
 import threading 
 lock = threading.Lock() 
 
-# centralsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	# centralsocket.connect(("localhost", 5006)) # connect to central server
-
 IP = "localhost"
-PORT = 5005 
+PORT = 5008
 
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 serversocket.bind((IP,PORT)) # act as a server
@@ -22,9 +19,12 @@ def sendtoclient(clientsocket):
 	swaptuple = clientsocket.recv(1024) # receive i,j tuple
 	st = pickle.loads(swaptuple)
 	t = datetime.datetime(st[2],st[3],st[4],st[5],st[6],st[7],st[8])
-	#centralsocket.send(swaptuple)
+	centralsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	centralsocket.connect(("localhost", 5007)) # connect to central server
+	centralsocket.send(swaptuple)
 	lock.release()	
 	clientsocket.close()
+	centralsocket.close()
 
 listdirectory = open("lisdir.txt", "r")
 lisdir = []
@@ -39,5 +39,6 @@ while(1):
 	lock.acquire()
 	print("Got a connection from ", address)
 	start_new_thread(sendtoclient, (clientsocket,)) 
+	#sendtoclient(clientsocket)
 
 serversocket.close()
