@@ -4,9 +4,9 @@ from datetime import datetime
 
 clientsocket= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 IP= "localhost"
-PORT= 5008
+PORT= 5001
 
-clientsocket.connect((IP, 5008))
+clientsocket.connect((IP, PORT))
 listofelements=[]
 indices=[]
 data=clientsocket.recv(1024)	# recieving list
